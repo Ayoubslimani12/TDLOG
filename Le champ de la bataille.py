@@ -48,7 +48,6 @@ class player:
         if player.max_hits_player(l1)<=22:
             if a==len(l)-1:
                 raise Weapon.OutOfRangeError("L'espace est occupé")
-        if player.max_hits_player(l1)<=22:
             if a==len(l):
                 l+=[A]
 
@@ -65,11 +64,12 @@ class battle:
         else :
             return False
     
-    def attack(self,player1:player,player2:player,x:int,y:int,z:int,Vaisseau:Vessel.Vessel):
+    def attack(self, player1:player, player2:player,x:int,y:int,z:int,Vaisseau:Vessel.Vessel):
         if not self._player1.max_hits_player()>0:
             return "you're already dead"
         l1=self._player1._liste
         l2=self._player2._liste
+        Vaisseau.fire_at(x,y,z)
         if Vaisseau in l1:
             for j in l2:
                 a=Vaisseau.position()
