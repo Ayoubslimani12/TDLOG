@@ -67,6 +67,8 @@ class battle:
     def attack(self, player1:player, player2:player,x:int,y:int,z:int,Vaisseau:Vessel.Vessel):
         if not self._player1.max_hits_player()>0:
             return "you're already dead"
+        if not (self._player1.My_space() or self._player2.My_space()):
+            raise Weapon.OutOfRangeError("Il y a un chevauche entre les espaces des 2 joueurs")
         l1=self._player1._liste
         l2=self._player2._liste
         Vaisseau.fire_at(x,y,z)
