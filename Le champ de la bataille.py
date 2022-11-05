@@ -36,14 +36,14 @@ class player:
         return s
 
     def ajouter_vaiseau(self,A:Vessel.Vessel):
-        B=player.position(A)
+        B=Vessel.Vessel.position(A)
         l=self._liste
         l1=l+[A]
         a=0
         if not player.max_hits_player(l1)<=22:
             raise Weapon.OutOfRangeError("Vous avez dépassé la limite du max_hits ")
         for i in l :
-            if player.position(A)!= player.position(i):
+            if Vessel.Vessel.position(A)!= Vessel.Vessel.position(i):
                 a+=1
         if player.max_hits_player(l1)<=22:
             if a==len(l)-1:
