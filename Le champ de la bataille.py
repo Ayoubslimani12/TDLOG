@@ -59,7 +59,7 @@ class battle:
     def space(self):
         l1=self._player1.My_space()
         l2=self._player2.My_space()
-        if not l1[1]<l2[0] and l1[3]<l2[2] and l1[5]<l2[4] :
+        if not l1[1]<l2[0] and l1[3]<l2[2] :
             return True
         else :
             return False
