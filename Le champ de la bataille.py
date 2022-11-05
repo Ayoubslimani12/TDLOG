@@ -1,5 +1,5 @@
-import Weapon
-import Vessel
+from Weapon import *
+from Vessel import *
 
 class player:
     def __init__(self,liste:list,x1,x2,y1,y2,z1,z2):
@@ -11,11 +11,11 @@ class player:
         if z1 > z2 :
             z1,z2 = z2, z1
         if not 0 <= x1 < x2 <= 100:
-            raise Weapon.OutOfRangeError("x not in the space")        
+            raise OutOfRangeError("x not in the space")        
         elif not 0 <= y1 < y2 <= 100:
-            raise Weapon.OutOfRangeError("y not in the space")
+            raise OutOfRangeError("y not in the space")
         elif not -1 <= z1 <= z2 <= 1:
-            raise Weapon.OutOfRangeError("z not in the space")
+            raise OutOfRangeError("z not in the space")
         self._x1=x1
         self._x2=x2
         self._y1=y1
@@ -32,22 +32,22 @@ class player:
     def max_hits_player(self):
         s=0
         for i in self._liste :
-            s+=Vessel.Vessel.get_max_hits(i)
+            s+=Vessel.get_max_hits(i)
         return s
 
-    def ajouter_vaiseau(self,A:Vessel.Vessel):
-        B=Vessel.Vessel.position(A)
+    def ajouter_vaiseau(self,A:Vessel):
+        B=Vessel.position(A)
         l=self._liste
         l1=l+[A]
         a=0
         if not player.max_hits_player(l1)<=22:
-            raise Weapon.OutOfRangeError("Vous avez dépassé la limite du max_hits ")
+            raise OutOfRangeError("Vous avez dépassé la limite du max_hits ")
         for i in l :
-            if Vessel.Vessel.position(A)!= Vessel.Vessel.position(i):
+            if Vessel.position(A)!= Vessel.position(i):
                 a+=1
         if player.max_hits_player(l1)<=22:
             if a==len(l)-1:
-                raise Weapon.OutOfRangeError("L'espace est occupé")
+                raise OutOfRangeError("L'espace est occupé")
             if a==len(l):
                 l+=[A]
 
@@ -68,17 +68,17 @@ class battle:
         if not self._player1.max_hits_player()>0:
             return "you're already dead"
         if not (self._player1.My_space() or self._player2.My_space()):
-            raise Weapon.OutOfRangeError("Il y a un chevauche entre les espaces des 2 joueurs")
+            raise OutOfRangeError("Il y a un chevauche entre les espaces des 2 joueurs")
         l1=self._player1._liste
         l2=self._player2._liste
         Vaisseau.fire_at(x,y,z)
         if Vaisseau in l1:
             for j in l2:
                 a=Vaisseau.position()
-                b=Vessel.Vessel.position(j)
+                b=Vessel.position(j)
                 if Vaisseau.fire_at(x,y,z)==(b[0],b[1],b[2]):
-                    Vessel.Vessel.damage(j)
-                    if Vessel.Vessel.get_max_hits(j)==0:
+                    Vessel.damage(j)
+                    if Vessel.get_max_hits(j)==0:
                         self._player2._liste.remove(j)
                         if self._player1.max_hits_player()==0:
                             self._player2._liste=[]
